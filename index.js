@@ -18,6 +18,7 @@ let transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  tls: { rejectUnauthorized: false },
 });
 
 app.post("/api/contact", async (req, res) => {
@@ -78,14 +79,6 @@ app.post("/api/contact", async (req, res) => {
     console.error(err);
     res.status(500).json({ success: false, message: "Failed to send email" });
   }
-});
-
-app.get("/api/test", (req, res) => {
-  console.log("TEST endpoint working!");
-  res.status(200).json({
-    success: true,
-    message: "API is working!",
-  });
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
